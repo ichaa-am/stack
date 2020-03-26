@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAKS 5
+
+typedef char itemType;
+typedef struct
+{
+    itemType data[MAKS];
+    int idx;
+} stack;
+
+void inisialisasi(stack *);
+void push(stack *, itemType);
+itemType pop(stack *);
+int empty(stack *);
+int full(stack *);
+
+int main()
+{
+    stack tumpukan;
+    char answer;
+    itemType x, isi;
+    inisialisasi(&tumpukan);
+    do
+    {
+        printf("Silahkan masukkan data :");
+        scanf("%c", &x);
+        fflush(stdin);
+        push(&tumpukan, x);
+        printf("Mau masukkan data lagi(y/t)?");
+        scanf("%c", &answer);
+        fflush(stdin);
+    }
+    while(answer=='y' || answer=='Y');
+
+    printf("\n===ISI STACK===\n");
+    do
+    {
+        printf("%c\n", pop(&tumpukan));
+    }
+    while(empty(&tumpukan) !=1);
+    return 0;
+}
+
+void inisialisasi(stack *s)
+{
+    s->idx=0;
+}
+
+int empty(stack *s)
+{
+    if(s->idx == 0)
+        return 1;
+    else
+        return 0;
+}
+int full(stack *s)
+{
+    if(s->idx == MAKS)
+        return 1;
+    else
+        return 0;
+}
+
+void push(stack *s, itemType x)
+{
+    if(full(s) ==1)
+        puts("\nData saudah full");
+    else
+    {
+        s->data[s->idx] = x;
+        (s->idx)++;
+    }
+}
+
+itemType pop(stack *s)
+{
+    itemType temp;
+    if(empty(s) ==1)
+        puts("\nData kosong");
+    else
+    {
+        (s->idx)--;
+        temp = s->data[s->idx];
+    }
+    return temp;
+}

@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAKS 360
+
+typedef char itemType;
+typedef struct stack
+{
+    itemType data[MAKS];
+    int idx;
+}stack;
+
+void initial(stack *);
+int full(stack *);
+int empty(stack *);
+void push(stack *, itemType);
+itemType pop(stack *);
+
+int main()
+{
+    stack tumpukan;
+    initial(&tumpukan);
+    char answer[MAKS];
+    //int stat;
+    printf("Masukkan kata:");
+    gets(answer);
+
+    for(int i=0; i<strlen(answer); i++)
+    {
+        push(&tumpukan, answer[i]);
+    }
+    for(int i=0; i<strlen(answer); i++)
+    {
+        if(pop(&tumpukan) != answer[i])
+        {
+            printf("\nBukan Palindrom");
+            break;
+        }
+        else
+            printf("\nPalindrom");
+            break;
+    }
+}
+
+void initial(stack *s)
+{
+    s->idx = 0;
+}
+
+int full(stack *s)
+{
+    return(s->idx == MAKS);
+}
+
+int empty(stack *s)
+{
+    return(s->idx == 0);
+}
+
+void push(stack *s, itemType x)
+{
+    if(full(s)==1)
+        puts("\nData udah full");
+    else
+    {
+        s->data[s->idx] = x;
+        (s->idx)++;
+    }
+}
+
+itemType pop(stack *s)
+{
+    if(empty(s)==1)
+        puts("\nData kosong");
+    else
+    {
+        --(s->idx);
+        return(s->data[s->idx]);
+    }
+}

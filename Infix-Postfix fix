@@ -96,7 +96,7 @@ void konversi(char infix[MAKS])
     int drjt;
     for(int i=0; i< strlen(infix); i++)
     {
-        if(infix[i] > '0' && infix[i] <='9')
+        if(infix[i] >= '0' && infix[i] <='9')
         {
             printf("%c ", infix[i]);
         }

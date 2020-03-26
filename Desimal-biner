@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+//#define MAKS 500
+
+int max;
+typedef int itemType;
+typedef struct
+{
+    itemType data[500];
+    int count;
+}stack;
+
+void inisialisation(stack *s)
+{
+    s->count =0;
+}
+
+int empty(stack *s)
+{
+    return(s->count ==0);
+}
+
+int full(stack *s)
+{
+    return(s->count == max);
+}
+
+void push(stack *s, itemType x)
+{
+    if(full(s))
+        puts("\nData penuh");
+    else
+    {
+        s->data[s->count] = x;
+        ++(s->count);
+    }
+}
+
+int pop(stack *s)
+{
+    //itemType temp;
+    if(empty(s))
+        puts("\nData kosong");
+    else
+    {
+        --(s->count);
+        return (s->data[s->count]);
+    }
+    //return temp;
+}
+
+int i, n, m, l, z;
+int input;
+stack tumpukan;
+void biner();
+
+void biner()
+{
+    for(z=1, n=input; n>0; n=n/2, z++)
+    {
+        max = z;
+        m =n%2;
+        push(&tumpukan, m);
+    }
+    //m=0;
+    /*for(n=input; n>0; n=n/2)
+    {
+        l=n%2;
+        push(&tumpukan, l);
+        ++m;
+    }*/
+
+    printf("Bilangan binernya:");
+    for(i=max; i>0; i--)
+    {
+        printf("%d", pop(&tumpukan));
+    }
+
+}
+int main()
+{
+    inisialisation(&tumpukan);
+    printf("Masukkan bilangan desimal:");
+    scanf("%d", &input);
+    biner();
+    getch();
+    return 0;
+}

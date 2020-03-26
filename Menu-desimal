@@ -1,0 +1,174 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int max;
+typedef int itemType;
+
+typedef struct
+{
+    itemType data[500];
+    int count;
+} stack;
+
+void inisialisasi(stack *s)
+{
+    s->count=0;
+}
+
+int empty(stack *s)
+{
+    return(s->count == 0);
+}
+
+int full(stack *s)
+{
+    return(s->count == max);
+}
+
+void push(stack *s, itemType x)
+{
+    if(full(s))
+        printf("\nData penuh");
+    else
+    {
+        s->data[s->count]=x;
+        ++(s->count);
+    }
+}
+
+int pop(stack *s)
+{
+    if(empty(s))
+        printf("\nStack kosong");
+    else
+    {
+        --(s->count);
+        return(s->data[s->count]);
+    }
+    return 0;
+}
+
+//deklarasi
+int i, n, m, l, z, p;
+int input;
+stack tumpukan;
+char menu();
+void biner();
+void oktal();
+void heksa();
+
+char menu()
+{
+    char jawab;
+    printf("\n===MENU KONVERSI===\n");
+    printf("1. BINER\n");
+    printf("2. OKTAL\n");
+    printf("3. HEKSA\n");
+    printf("4. KELUAR\n");
+    printf("Masukkan pilihan:");
+    scanf("%c", &jawab);
+    fflush(stdin);
+
+    return jawab;
+    //menu();
+}
+int main()
+{
+    char answer;
+    //printf("\n===KONVERSI DESIMAL ke BINER, OKTAL, dan HEKSADESIMAL===\n");
+    inisialisasi(&tumpukan);
+    printf("\nMasukkan bilangan desimal:");
+    scanf("%d", &input);
+    fflush(stdin);
+    do
+    {
+        answer = menu();
+        switch(answer)
+        {
+        case '1' :
+            //printf("Bilangan Binernya\n");
+            biner();
+            break;
+        case '2' :
+            //printf("Bilangan Oktalnya\n");
+            oktal();
+            break;
+        case '3' :
+            //printf("Bilangan Heksadesimalnya\n");
+            heksa();
+            break;
+        case '4' :
+            printf("\n===TERIMAKASIH===\n");
+            exit(0);
+            break;
+        default :
+            printf("\nPilihan tidak tersedia, silahkan pilih lagi\n");
+            menu();
+            break;
+        }
+    }
+    while(answer != 4);
+    return 0;
+}
+
+void biner()
+{
+    for(z=1, n=input; n>0; n=n/2, z++)
+    {
+        max = z;
+        m =n%2;
+        push(&tumpukan, m);
+    }
+    printf("Bilangan binernya:");
+    for(i=max; i>0; i--)
+    {
+        printf("%d", pop(&tumpukan));
+    }
+
+}
+
+void oktal()
+{
+    for(z=1, n=input; n>0; n=n/8, z++)
+    {
+        max = z;
+        m = n%8;
+        push(&tumpukan, m);
+    }
+    printf("Bilangan oktalnya:");
+    for(i=max; i>0; i--)
+    {
+        printf("%d", pop(&tumpukan));
+    }
+
+}
+
+void heksa()
+{
+    for(z=1, n=input; n>0; n=n/16, z++)
+    {
+        max = z;
+        m = n%16;
+        push(&tumpukan, m);
+    }
+    printf("Bilangan Heksa-nya:");
+    for(i=max; i>0; i--)
+    {
+        p = pop(&tumpukan);
+        if(p<=9)
+            printf("%d", p);
+        else if(p==10)
+            printf("A");
+        else if(p==11)
+            printf("B");
+        else if(p==12)
+            printf("C");
+        else if(p==13)
+            printf("D");
+        else if(p==14)
+            printf("E");
+        else if(p==15)
+            printf("F");
+    }
+}
+
